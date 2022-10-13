@@ -35,3 +35,7 @@ Route::post('/categories/edit/{id}',[CategoryController::class, 'update'])->name
 Route::get('/categories/delete/{id}',[CategoryController::class, 'delete'])->name('categories.delete');
 Route::get('/products/create',[ProductController::class, 'add'])->name('products.add');
 Route::post('/products/create',[ProductController::class, 'create'])->name('products.create');
+Route::get('/products/list',[ProductController::class, 'list'])->name('products.list');
+Route::get('/products/edit/{id}',[ProductController::class, 'edit'])->name('products.edit');
+Route::post('/products/edit/{id}',[ProductController::class, 'update'])->name('products.update');
+Route::get('/products/delete/{id}',[ProductController::class, 'delete'])->name('products.delete');

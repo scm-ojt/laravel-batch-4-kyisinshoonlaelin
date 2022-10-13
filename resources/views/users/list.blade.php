@@ -29,6 +29,9 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="d-flex">
+                {{ $users->links() }}
+        </div>
     </div>
 </div>
 

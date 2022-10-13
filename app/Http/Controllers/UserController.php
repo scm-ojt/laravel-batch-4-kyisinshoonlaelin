@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function list() {
-        $data = User::all();
+        $data = User::latest()->paginate(10);
         return view('users.list', [
         'users' => $data
         ]); 
