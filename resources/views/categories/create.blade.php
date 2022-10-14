@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Create Category') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('categories.create') }}">
+                    <form method="POST" action="{{ route('categories.store') }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -26,9 +26,12 @@
                         </div>
 
                         <div class="row mb-0">
-                            <div class="col-md-6 offset-md-5">
+                            <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Create') }}
+                                </button>
+                                <button type="" class="btn btn-secondary">
+                                    {{ __('Back') }}
                                 </button>
                             </div>
                         </div>

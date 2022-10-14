@@ -13,7 +13,7 @@
                         <input type="hidden" id="user_id" name="user_id" value="{{ Auth::user()->id }}">
                         <div class="">
                                 <label><strong>Select Category :</strong></label><br/>
-                                <select class="selectpicker" multiple data-live-search="true" name="cat[]">
+                                <select class="selectpicker" multiple data-live-search="true" name="categories[]">
                                     @foreach($categories as $category)
                                         <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
                                     @endforeach
@@ -66,6 +66,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Create') }}
                                 </button>
+                                <a href="{{ route('products.list') }}" class="btn btn-secondary">
+                                    {{ __('Back') }}
+                                </a>
                             </div>
                         </div>
                     </form>

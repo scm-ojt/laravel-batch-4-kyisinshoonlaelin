@@ -3,6 +3,7 @@
 @section('content')
 </script>
 <div class="container">
+    <a class="btn btn-info gap" href="{{ route('categories.create') }}"> Add Category </a>
     <div class="row justify-content-center">
         <table>
             <thead>
@@ -13,18 +14,19 @@
             </tr>
             </thead>
             <tbody>
-                @foreach($categories as $cate)
-                @if($cate['deleted_at'] == null)
+                @foreach($categories as $category)
                 <tr>
-                    <td> {{ $cate['id']}} </td>
-                    <td> {{ $cate['name'] }} </td>
-                    <td><a href="{{ url('categories/edit/'.$cate->id) }}">Edit</a> 
-                    <a onclick="return confirm('Are you sure to delete?')" href="{{ url('categories/delete/'.$cate->id) }}">Delete</a> </td> 
+                    <td> {{ $category->id }} </td>
+                    <td> {{ $category->name }} </td>
+                    <td><a href="{{ url('categories/edit/'.$category->id) }}">Edit</a> 
+                    <a onclick="return confirm('Are you sure to delete?')" href="{{ url('categories/delete/'.$category->id) }}">Delete</a> </td> 
                 </tr>
-                @endif
                 @endforeach
             </tbody>
         </table>
+        <div class="d-flex">
+             {{ $categories->links() }}
+        </div>
     </div>
 </div>
 

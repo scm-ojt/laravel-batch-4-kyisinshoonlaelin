@@ -2,58 +2,93 @@
 
 namespace App\Http\Controllers;
 
-use DateTime;
 use App\Models\Category;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryCreateRequest;
+use App\Http\Requests\CategoryUpdateRequest;
 
 class CategoryController extends Controller
 {
-    public function add(){
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {        
         return view('categories.create');
     }
-    public function create() {
-        $validator = validator(request()->all(), [
-            'name' => 'required|max:50',
-        ]);
-        if($validator->fails()) {
-            return back()->withErrors($validator);
-        }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(CategoryCreateRequest $request)
+    {
+        $validated = $request->validated();
         $category = new Category;
         $category->name = request()->name;
         $category->save();
-        return redirect('/categories/list');
+
+        return redirect()->route('categories.list');
     }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function list() {
-        $data = Category::all();
-        return view('categories.list', [
-            'categories' => $data
-        ]);
+        $categories = Category::latest()->paginate(10);
+
+        return view('categories.list', compact('categories'));
     }
-    public function edit($id) {
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
         $category = Category::find($id);
         return view('categories.edit', [
-            'cate' => $category
+            'category' => $category
         ]);
     }
-    public function update($id) {
-        $validator = validator(request()->all(), [
-            'name' => 'required|max:50',
-        ]);
-        if($validator->fails()) {
-            return back()->withErrors($validator);
-        }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(CategoryUpdateRequest $request, $id)
+    {
+        $validated = $request->validated();
         $category = Category::find($id);
         $category->name = request()->name;
         $category->save();
-        return redirect('/categories/list');
+
+        return redirect()->route('categories.list');
     }
-    public function delete($id) {
-        $dt = new DateTime();
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
         $category = Category::find($id);
-        $category->deleted_at = $dt;
-        $category->save();
-        return redirect('/categories/list');
+        $category -> delete();
+
+        return redirect()->route('categories.list');
     }
 }

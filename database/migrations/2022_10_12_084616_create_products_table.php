@@ -21,7 +21,8 @@ return new class extends Migration
             $table->text('description');
             $table->string('price');
             $table->timestamps();
-            $table->date('deleted_at')->nullable();
+            //$table->date('deleted_at')->nullable();
+            $table->softDeletes();
         });
     }
 

@@ -8,14 +8,14 @@
                 <div class="card-header">{{ __('Create Category') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('categories.update',$cate->id) }}">
+                    <form method="POST" action="{{ route('categories.update',$category->id) }}">
                         @csrf
 
                         <div class="row mb-3">
                             <label for="name" class="col-md-3 col-form-label text-md-end">{{ __('Category Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $cate['name'] }}"  autocomplete="name" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $category['name'] }}"  autocomplete="name" autofocus>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
