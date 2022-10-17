@@ -30,9 +30,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Create') }}
                                 </button>
-                                <button type="" class="btn btn-secondary">
+                                <a href="{{ route('categories.list') }}" class="btn btn-secondary">
                                     {{ __('Back') }}
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </form>

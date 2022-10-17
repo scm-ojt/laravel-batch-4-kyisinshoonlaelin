@@ -12,10 +12,23 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     
     <style>
         .gap {
             margin-bottom: 20px;
+        }
+        .card-panel {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .category {
+            overflow: hidden;
+            list-style-type: none;
+        }
+        .category li {
+            float: left;
+            padding: 16px;
         }
     </style>
 

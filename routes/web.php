@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Admin\ProductController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +36,12 @@ Route::post('/categories/edit/{id}',[CategoryController::class, 'update'])->name
 Route::get('/categories/delete/{id}',[CategoryController::class, 'destroy'])->name('categories.delete');
 Route::get('/products/create',[ProductController::class, 'create'])->name('products.create');
 Route::post('/products/create',[ProductController::class, 'store'])->name('products.create');
-Route::get('/products/list',[ProductController::class, 'list'])->name('products.list');
+Route::get('/products/list',[ProductController::class, 'index'])->name('products.list');
 Route::get('/products/edit/{id}',[ProductController::class, 'edit'])->name('products.edit');
 Route::post('/products/edit/{id}',[ProductController::class, 'update'])->name('products.update');
 Route::get('/products/delete/{id}',[ProductController::class, 'destroy'])->name('products.delete');
+Route::get('/products/detail/{id}',[ProductController::class, 'show'])->name('products.show');
+Route::get('/products/search',[ProductController::class, 'search'])->name('products.search');
+Route::get('/products/index',[ProductController::class, 'getProducts'])->name('products.user.index');
+
+Route::get('/adminLte/dashboard',[ProductController::class, 'showDashboard'])->name('dashboard');
