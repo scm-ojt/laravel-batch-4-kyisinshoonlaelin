@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Exports\ProductsExport;
+use App\Imports\ProductsImport;
 use App\Models\CategoryProduct;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\ProductCreateRequest;
 use App\Http\Requests\ProductUpdateRequest;
 
@@ -40,7 +43,7 @@ class ProductController extends Controller
         $validated = $request->validated();
 
         $product = new Product;
-        $product ->user_id = request()->user_id;
+        $product ->user_id = auth()->user()->id;
         $product->title = request()->title;
         $product->description = request()->description;
         $product->price = request()->price;
@@ -55,7 +58,7 @@ class ProductController extends Controller
             $category_product -> save();
         }
 
-        return redirect()->route('products.index');
+        return redirect()->route('products.list');
     }
 
     /**
@@ -171,9 +174,36 @@ class ProductController extends Controller
         return view('products.search', compact('searchedProducts'));
     }
 
-    public function showDashboard() {
-        $userName = auth()->user()->name;
-        return view('adminLte.dashboard', compact('userName'));
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function showDashboard() 
+    {
+        return view('adminLte.dashboard');
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function export() 
+    {
+        return Excel::download(new ProductsExport, 'products.xlsx');
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function import() 
+    {
+        Excel::import(new ProductsImport,request()->file('file'));
+               
+        return back();
     }
 
 }

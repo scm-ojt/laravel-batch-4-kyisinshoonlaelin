@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SendEmailController;
 use App\Http\Controllers\Admin\ProductController;
 
 
@@ -35,7 +36,7 @@ Route::get('/categories/edit/{id}',[CategoryController::class, 'edit'])->name('c
 Route::post('/categories/edit/{id}',[CategoryController::class, 'update'])->name('categories.update');
 Route::get('/categories/delete/{id}',[CategoryController::class, 'destroy'])->name('categories.delete');
 Route::get('/products/create',[ProductController::class, 'create'])->name('products.create');
-Route::post('/products/create',[ProductController::class, 'store'])->name('products.create');
+Route::post('/products/create',[ProductController::class, 'store'])->name('products.store');
 Route::get('/products/list',[ProductController::class, 'index'])->name('products.list');
 Route::get('/products/edit/{id}',[ProductController::class, 'edit'])->name('products.edit');
 Route::post('/products/edit/{id}',[ProductController::class, 'update'])->name('products.update');
@@ -45,3 +46,6 @@ Route::get('/products/search',[ProductController::class, 'search'])->name('produ
 Route::get('/products/index',[ProductController::class, 'getProducts'])->name('products.user.index');
 
 Route::get('/adminLte/dashboard',[ProductController::class, 'showDashboard'])->name('dashboard');
+Route::get('/products/export',[ProductController::class, 'export'])->name('products.export');
+Route::post('/products/import',[ProductController::class, 'import'])->name('products.import');
+Route::get('/sendEmail/{id}', [SendEmailController::class, 'index'])->name('adminLte.sendEmail');

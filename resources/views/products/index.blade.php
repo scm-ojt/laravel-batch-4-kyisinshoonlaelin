@@ -1,8 +1,15 @@
-@extends('layouts/app')
+@extends('adminLte/dashboard')
 
 @section('content')
 <div class="container">
     <a class="btn btn-info gap" href="{{ route('products.create') }}"> Add Product </a>
+    <a class="btn btn-info gap" href="{{ route('products.export') }}"> Download Product Data </a>
+    <form action="{{ route('products.import') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="file" name="file" class="form-control">
+                <br>
+                <button class="btn btn-success">Import Product Data</button>
+            </form>
     <form action="{{ route('products.search') }}" method="GET" style="float:right">
         <input type="text" name="search" required/>
         <button type="submit">Search</button>

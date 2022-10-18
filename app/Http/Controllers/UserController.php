@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Mail\NotifyMail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\UserUpdateRequest;
 
 class UserController extends Controller
@@ -64,6 +66,13 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->delete();
+        Mail::to('scm.kyisinshoonlaelinn@gmail.com')->send(new NotifyMail());
+ 
+      if (Mail::failures()) {
+           return response()->Fail('Sorry! Please try again latter');
+      }else{
+           return response()->success('Great! Successfully send in your mail');
+         }
 
         return redirect()->route('users.list');
     }

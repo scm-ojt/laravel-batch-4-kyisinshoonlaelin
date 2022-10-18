@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Create Product') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('products.create') }}">
+                    <form method="POST" action="{{ route('products.store') }}">
                         @csrf
                         <input type="hidden" id="user_id" name="user_id" value="{{ Auth::user()->id }}">
                         <div class="">
