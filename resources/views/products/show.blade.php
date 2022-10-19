@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="justify-content-center">
         <h3 style="color: #00008b"> {{ $product->user->name }} </h3>
         <p> {{ $product -> created_at }} </p>
-        <img src="{{ URL::asset('../resources/img/sample.png') }}" alt="sample">
+        <img src="{{ asset($product->image?->path) }}" alt="sample" width= '150' height='150' class="img img-responsive"/>
         <ul class="category">
         @foreach($product->categories as $category)
             <li> {{ $category->name }} </li>

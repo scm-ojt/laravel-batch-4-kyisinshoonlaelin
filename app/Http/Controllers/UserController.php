@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Product;
 use App\Mail\NotifyMail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -65,14 +66,19 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
+        $email= $user -> email;
+        $product = Product::where('user_id',$id)->delete();
         $user->delete();
-        Mail::to('scm.kyisinshoonlaelinn@gmail.com')->send(new NotifyMail());
+
+        Mail::to($email)->send(new NotifyMail());
+
+
  
-      if (Mail::failures()) {
+      /* if (Mail::failures()) {
            return response()->Fail('Sorry! Please try again latter');
       }else{
            return response()->success('Great! Successfully send in your mail');
-         }
+         } */
 
         return redirect()->route('users.list');
     }

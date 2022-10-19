@@ -8,9 +8,8 @@
                 <div class="card-header">{{ __('Create Product') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('products.store') }}">
+                    <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" id="user_id" name="user_id" value="{{ Auth::user()->id }}">
                         <div class="">
                                 <label><strong>Select Category :</strong></label><br/>
                                 <select class="selectpicker" multiple data-live-search="true" name="categories[]">
@@ -19,6 +18,16 @@
                                     @endforeach
                                 </select>
                         </div>
+                        <br>
+                        <div class="col-md-6">
+                            <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" accept="image/x-png,image/gif,image/jpeg">
+                            @error('image')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }} </strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <br>
                         <div class="row mb-3">
                             <label for="title" class="col-md-3 col-form-label text-md-end">{{ __('Title') }}</label>
 

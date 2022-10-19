@@ -14,10 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('images', function (Blueprint $table) {
-            $table->imageable_id();
-            $table->imageable_type();
-            $table->name();
-            $table->path();
+            $table->id();
+            $table->morphs('imageable');
+            $table->string('name');
+            $table->string('path');
             $table->timestamps();
             $table->softDeletes();
         });

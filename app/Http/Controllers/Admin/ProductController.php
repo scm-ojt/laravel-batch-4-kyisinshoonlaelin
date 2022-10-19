@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Image;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -58,6 +59,16 @@ class ProductController extends Controller
             $category_product -> save();
         }
 
+        $image = new Image;      
+        //$image -> path = request()->file('image')->store('images');
+        $imageName = time().'.'.$request->image->extension();     
+        $request->image->move(public_path('images'), $imageName);
+        $image -> name = $imageName;
+        $image -> path = 'images/'.$imageName;
+        $image -> imageable_id = $product->id;
+        $image -> imageable_type = get_class($product);
+        $image -> save();
+
         return redirect()->route('products.list');
     }
 
@@ -85,6 +96,11 @@ class ProductController extends Controller
         return view('products.index', compact('products'));
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function getProducts() {
         $products = Product::all();
 
@@ -126,7 +142,18 @@ class ProductController extends Controller
         $product -> save();
 
         $category_product = CategoryProduct::where('product_id',$id)->delete();
-        //$category_product -> delete();
+        $image_path = public_path('images').'/'.$product->image->name;
+        unlink($image_path);
+        $image = Image::where('imageable_id',$id)->delete();
+
+        $image = new Image;
+        $image -> imageable_id = $id;
+        $image -> imageable_type = get_class($product);
+        $imageName = time().'.'.$request->image->extension();     
+        $request->image->move(public_path('images'), $imageName);
+        $image -> name = $imageName;
+        $image -> path = 'images/'.$imageName;
+        $image -> save();
 
         $categories = request()->categories;
         foreach($categories as $category) {
@@ -136,7 +163,7 @@ class ProductController extends Controller
             $category_product -> save();
         }
 
-        return redirect()->route('products.index');
+        return redirect()->route('products.list');
     }
 
     /**
@@ -148,9 +175,12 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
+        $image_path = public_path('images').'/'.$product->image->name;
+        unlink($image_path);
         $product-> delete();
+        $image = Image::where('imageable_id',$id)->delete();
 
-        return redirect()->route('products.index');
+        return redirect()->route('products.list');
     }
 
     /**

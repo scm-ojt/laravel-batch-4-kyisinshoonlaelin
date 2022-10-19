@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Edit Product') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('products.update',$product->id) }}">
+                    <form method="POST" action="{{ route('products.update',$product->id) }}" enctype="multipart/form-data">
                         @csrf
                         <div class="">
                                 <label><strong>Select Category :</strong></label><br/>
@@ -18,6 +18,16 @@
                                     @endforeach
                                 </select>
                         </div>
+                        <br>
+                        <div class="col-md-6">
+                            <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" accept="image/x-png,image/gif,image/jpeg">
+                            @error('image')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }} </strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <br>
                         <div class="row mb-3">
                             <label for="title" class="col-md-3 col-form-label text-md-end">{{ __('Title') }}</label>
 
@@ -31,7 +41,6 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="row mb-3">
                             <label for="description" class="col-md-3 col-form-label text-md-end">{{ __('Description') }}</label>
 

@@ -23,6 +23,7 @@
                 <th>User Name</th>
                 <th>Category</th>
                 <th>Title</th>
+                <th>Image</th>
                 <th>Description</th>
                 <th>Price</th>
                 <th>Actions</th>
@@ -38,6 +39,7 @@
                          @endforeach
                     </td>
                     <td> {{ $product->title }} </td>
+                    <td> <img src="{{ asset($product->image?->path) }}" width= '50' height='50' class="img img-responsive"/> </td>
                     <td> {{ $product->description }} </td>
                     <td> {{ $product->price }} </td>
                     <td>
