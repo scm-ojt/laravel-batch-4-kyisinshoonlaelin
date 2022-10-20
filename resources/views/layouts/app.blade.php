@@ -30,6 +30,27 @@
             float: left;
             padding: 16px;
         }
+        .image-upload {
+            height: 170px;
+            width: 170px;
+            border-radius: 50%;
+            margin: 75px auto 0px auto;
+            overflow-y: hidden;
+        }
+
+        .image-upload > input
+        {
+            display: none;
+        }
+
+        .image-upload img
+        {    
+            cursor: pointer;
+            position: absolute;
+            top: 80px;
+            left: 322px;
+            color: var(--white);
+        }
     </style>
 
 
@@ -83,7 +104,7 @@
 
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a href="{{ url('users/details/'.Auth::user()->id) }}" id="navbarDropdown" class="nav-link dropdown-toggle text-decoration-none" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 

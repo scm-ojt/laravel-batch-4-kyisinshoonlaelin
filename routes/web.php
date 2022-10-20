@@ -26,8 +26,9 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/users/list', [UserController::class, 'list'])->name('users.list');
-Route::get('/users/edit/{id}',[UserController::class, 'edit'])->name('users.edit');
-Route::post('users/edit/{id}', [UserController::class, 'update'])->name('users.update');
+Route::get('/users/details/{id}',[UserController::class, 'show'])->name('users.show');
+Route::get('/users/edit/{user}',[UserController::class, 'edit'])->name('users.edit');
+Route::post('users/edit/{user}', [UserController::class, 'update'])->name('users.update');
 Route::get('users/delete/{id}',[UserController::class, 'destroy'])->name('users.destroy');
 Route::get('/categories/create',[CategoryController::class, 'create'])->name('categories.create');
 Route::post('/categories/create',[CategoryController::class, 'store'])->name('categories.store');

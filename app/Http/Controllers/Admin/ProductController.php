@@ -18,7 +18,7 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'show']);
+        $this->middleware('auth')->except(['getProducts', 'show']);
     }
 
     /**
@@ -60,7 +60,6 @@ class ProductController extends Controller
         }
 
         $image = new Image;      
-        //$image -> path = request()->file('image')->store('images');
         $imageName = time().'.'.$request->image->extension();     
         $request->image->move(public_path('images'), $imageName);
         $image -> name = $imageName;
@@ -133,8 +132,6 @@ class ProductController extends Controller
      */
     public function update(ProductUpdateRequest $request, $id)
     {
-        $validated = $request->validated();
-
         $product = Product::find($id);
         $product -> title = request()->title;
         $product -> description = request() -> description;
