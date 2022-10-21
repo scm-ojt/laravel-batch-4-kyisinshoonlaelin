@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductCreateRequest extends FormRequest
+class CsvImportRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,7 @@ class ProductCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'categories' => 'required',
-            'image' => 'required|image|mimes:jpg,png,jpeg,svg',
-            'title' => 'required|max:200',
-            'description' => 'required|max:700',
-            'price' => 'required',
+            'csvFile'=> 'required',
         ];
     }
 }

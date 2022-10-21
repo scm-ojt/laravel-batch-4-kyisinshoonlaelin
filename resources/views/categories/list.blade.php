@@ -1,4 +1,4 @@
-@extends('adminLte/dashboard')
+@extends('admins/dashboard')
 
 @section('content')
 </script>

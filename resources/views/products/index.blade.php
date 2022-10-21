@@ -1,14 +1,19 @@
-@extends('adminLte/dashboard')
+@extends('admins/dashboard')
 
 @section('content')
-<div class="container">
-    <a class="btn btn-info gap" href="{{ route('products.create') }}"> Add Product </a>
-    <a class="btn btn-info gap" href="{{ route('products.export') }}"> Download Product Data </a>
+<div class="container" style="padding-top:29px;">
+    <!-- <a class="btn btn-info gap" href="{{ route('products.create') }}"> Add Product </a> -->
+    <a class="btn btn-info gap" href="{{ route('products.export') }}"> Download Product Data </a> <br><br>
     <form action="{{ route('products.import') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <input type="file" name="file" class="form-control">
+                <input type="file" name="csvFile" class="form-control @error('csvFile') is-invalid @enderror">
+                @error('csvFile')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }} </strong>
+                                </span>
+                @enderror
                 <br>
-                <button class="btn btn-success">Import Product Data</button>
+                <button class="btn btn-success">Import</button>
             </form>
     <form action="{{ route('products.search') }}" method="GET" style="float:right">
         <input type="text" name="search" required/>

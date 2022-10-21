@@ -2,34 +2,23 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\AdminRegisterRequest;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Requests\AdminLoginRequest;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-class RegisterController extends Controller
-{
-    use RegistersUsers;
-
+class LoginController extends Controller
+{ 
     /**
-     * Where to redirect users after registration.
+     * Where to redirect users after login.
      *
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
-
+    
     /**
      * Display a listing of the resource.
      *
@@ -47,7 +36,7 @@ class RegisterController extends Controller
      */
     public function create()
     {
-        return view('admins.register');
+        return view('admins.login');
     }
 
     /**
@@ -56,15 +45,30 @@ class RegisterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AdminRegisterRequest $request)
+    public function login(AdminLoginRequest $request)
     {
-        return User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'phone' => $request['phone'],
-            'address' => $request['address'],
-            'password' => Hash::make($request['password']),
-        ]);
+        $admins = Admin::all();
+        foreach($admins as $admin) {
+            //return $admin->password == $request->password;
+            if($admin->email == $request->email && $admin->password == $request->password) {
+
+                return redirect()->route('admins.dashboard');
+            }
+            
+        }
+        
+        return view('accessDenied');
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function showDashboard() 
+    {
+        $admin = Admin::where('id', 1)->first();
+        return view('admins.dashboard', compact('admin'));
     }
 
     /**
@@ -110,5 +114,13 @@ class RegisterController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function adminLogout(Request $request)
+    {
+        auth()->guard('admin')->logout();
+        Session::flush();
+        Session::put('success', 'You are logout sucessfully');
+        return redirect(route('adminLogin'));
     }
 }

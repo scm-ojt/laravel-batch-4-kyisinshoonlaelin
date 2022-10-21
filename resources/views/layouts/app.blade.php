@@ -15,6 +15,9 @@
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     
     <style>
+        .nav-bottom {
+            margin-top: 20px;
+        }
         .gap {
             margin-bottom: 20px;
         }

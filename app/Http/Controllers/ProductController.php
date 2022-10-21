@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Models\Image;
 use App\Models\Product;
@@ -11,16 +11,15 @@ use App\Imports\ProductsImport;
 use App\Models\CategoryProduct;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Http\Requests\CsvImportRequest;
 use App\Http\Requests\ProductCreateRequest;
 use App\Http\Requests\ProductUpdateRequest;
 
 class ProductController extends Controller
 {
-    /* public function __construct()
+    public function __construct()
     {
-        $this->middleware('auth')->except(['getProducts', 'show', 'index']);
-    } */
+        $this->middleware('auth')->except(['getProducts', 'show']);
+    } 
 
     /**
      * Show the form for creating a new resource.
@@ -42,6 +41,8 @@ class ProductController extends Controller
      */
     public function store(ProductCreateRequest $request)
     {
+        $validated = $request->validated();
+
         $product = new Product;
         $product ->user_id = auth()->user()->id;
         $product->title = request()->title;
@@ -215,9 +216,9 @@ class ProductController extends Controller
      *
      * @return void
      */
-    public function import(CsvImportRequest $request) 
+    public function import() 
     {
-        Excel::import(new ProductsImport,$request->file('file'));
+        Excel::import(new ProductsImport,request()->file('file'));
                
         return back();
     }

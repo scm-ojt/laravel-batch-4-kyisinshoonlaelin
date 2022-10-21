@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+<a class="btn btn-info gap" href="{{ route('products.create') }}"> Add Product </a>
     <div class="row">
     @foreach($products as $product)
         <div class="col-sm-3 justify-content-center">

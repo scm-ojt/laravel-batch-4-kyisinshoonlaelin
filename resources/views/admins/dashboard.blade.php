@@ -36,13 +36,12 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-
         <!-- Preloader -->
         <!-- {{-- <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__shake" src="../dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60"
                 width="60">
         </div> --}} -->
-
+        
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <!-- Left navbar links -->
@@ -53,9 +52,6 @@
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="index3.html" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
                 </li>
             </ul>                
         </nav>
@@ -78,7 +74,7 @@
                         <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                        <a href="#" class="d-block">Kyi Sin</a>
                     </div>
                 </div>
 
@@ -154,14 +150,6 @@
                                         <p>List</p>
                                     </a>
                                 </li>
-
-                                <li class="nav-item">
-                                    <a href="{{ route('products.create') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Create</p>
-                                    </a>
-                                </li>
-
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -174,21 +162,31 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('users.list') }}" class="nav-link">
+                                    <a href="{{ route('admins.users.list') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>List</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admins.users.create') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Create</p>
                                     </a>
                                 </li>
 
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();"  class="nav-link">
                                 <i class="nav-icon fa-solid fa-right-from-bracket"></i>
-                                <p>
+                                <p>                               
                                     Logout
                                 </p>
                             </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                            </form>
                         </li>
                     </ul>
                     </li>
@@ -198,7 +196,7 @@
             </div>
             <!-- /.sidebar -->
         </aside>
-
+      
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
 
