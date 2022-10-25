@@ -26,10 +26,13 @@
                         </div>
 
                         <div class="row mb-0">
-                            <div class="col-md-6 offset-md-5">
+                            <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Update') }}
                                 </button>
+                                <a href="{{ route('categories.list') }}" class="btn btn-secondary">
+                                    {{ __('Back') }}
+                                </a>
                             </div>
                         </div>
                     </form>

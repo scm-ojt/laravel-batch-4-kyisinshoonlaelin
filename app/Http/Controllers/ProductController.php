@@ -16,11 +16,6 @@ use App\Http\Requests\ProductUpdateRequest;
 
 class ProductController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth')->except(['getProducts', 'show']);
-    } 
-
     /**
      * Show the form for creating a new resource.
      *
@@ -68,7 +63,7 @@ class ProductController extends Controller
         $image -> imageable_type = get_class($product);
         $image -> save();
 
-        return redirect()->route('products.list');
+        return redirect()->route('products.user.index');
     }
 
     /**
@@ -139,19 +134,20 @@ class ProductController extends Controller
         $product -> save();
 
         $category_product = CategoryProduct::where('product_id',$id)->delete();
-        $image_path = public_path('images').'/'.$product->image->name;
-        unlink($image_path);
-        $image = Image::where('imageable_id',$id)->delete();
+        if(isset($request->image)) {
+            $image_path = public_path('images').'/'.$product->image->name;
+            unlink($image_path);
+            $image = Image::where('imageable_id',$id)->delete();
 
-        $image = new Image;
-        $image -> imageable_id = $id;
-        $image -> imageable_type = get_class($product);
-        $imageName = time().'.'.$request->image->extension();     
-        $request->image->move(public_path('images'), $imageName);
-        $image -> name = $imageName;
-        $image -> path = 'images/'.$imageName;
-        $image -> save();
-
+            $image = new Image;
+            $image -> imageable_id = $id;
+            $image -> imageable_type = get_class($product);
+            $imageName = time().'.'.$request->image->extension();     
+            $request->image->move(public_path('images'), $imageName);
+            $image -> name = $imageName;
+            $image -> path = 'images/'.$imageName;
+            $image -> save();
+        } 
         $categories = request()->categories;
         foreach($categories as $category) {
             $category_product = new CategoryProduct;
@@ -160,7 +156,7 @@ class ProductController extends Controller
             $category_product -> save();
         }
 
-        return redirect()->route('products.list');
+        return redirect()->route('products.user.index');
     }
 
     /**
@@ -177,28 +173,7 @@ class ProductController extends Controller
         $product-> delete();
         $image = Image::where('imageable_id',$id)->delete();
 
-        return redirect()->route('products.list');
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @param Request $request
-     * @return void
-     */
-    public function search(Request $request){
-        // Get the search value from the request
-        $search = $request->input('search');
-    
-        // Search in the title and body columns from the posts table
-        //filter nk yayy yan
-        $searchedProducts = Product::query()
-            ->where('title', 'LIKE', "%{$search}%")
-            ->orWhere('price', 'LIKE', "%{$search}%")
-            ->get();
-    
-        // Return the search view with the resluts compacted
-        return view('products.search', compact('searchedProducts'));
+        return redirect()->route('products.user.index');
     }
 
     /**

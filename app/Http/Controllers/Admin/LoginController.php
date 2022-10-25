@@ -6,9 +6,8 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use App\Providers\RouteServiceProvider;
 use App\Http\Requests\AdminLoginRequest;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 { 
@@ -17,7 +16,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    //protected $redirectTo = RouteServiceProvider::HOME;
     
     /**
      * Display a listing of the resource.
@@ -47,6 +46,15 @@ class LoginController extends Controller
      */
     public function login(AdminLoginRequest $request)
     {
+        if(auth()->guard('admin')->attempt(['email' => $request->input('email'),  'password' => $request->input('password')])){
+            $user = auth()->guard('admin')->user();
+            // return $user;
+            if($user->id == 1){
+                return redirect()->route('adminDashboard')->with('success','You are Logged in sucessfully.');
+            }
+        }else {
+            return back()->with('error','Whoops! invalid email and password.');
+        }
         $admins = Admin::all();
         foreach($admins as $admin) {
             //return $admin->password == $request->password;
@@ -121,6 +129,6 @@ class LoginController extends Controller
         auth()->guard('admin')->logout();
         Session::flush();
         Session::put('success', 'You are logout sucessfully');
-        return redirect(route('adminLogin'));
+        return redirect(route('admins.login'));
     }
 }

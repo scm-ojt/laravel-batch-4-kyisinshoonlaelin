@@ -31,7 +31,29 @@
     <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
-  
+    <style>
+         .image-upload {
+            height: 170px;
+            width: 170px;
+            border-radius: 50%;
+            margin: 75px auto 0px auto;
+            overflow-y: hidden;
+        }
+
+        .image-upload > input
+        {
+            display: none;
+        }
+
+        .image-upload img
+        {    
+            cursor: pointer;
+            position: absolute;
+            top: 80px;
+            left: 274px;
+            color: var(--white);
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -74,7 +96,7 @@
                         <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Kyi Sin</a>
+                        <a href="#" class="d-block">{{ auth()->guard('admin')->user()->name }}</a>
                     </div>
                 </div>
 
@@ -120,7 +142,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="/categories/list" class="nav-link">
+                                    <a href="{{ route('categories.list') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>List</p>
                                     </a>
@@ -145,7 +167,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="/products/list" class="nav-link">
+                                    <a href="{{ route('admins.products.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>List</p>
                                     </a>
@@ -184,8 +206,8 @@
                                     Logout
                                 </p>
                             </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
+                            <form id="logout-form" action="{{ route('admins.logout') }}" method="POST" class="d-none">
+                                @csrf
                             </form>
                         </li>
                     </ul>

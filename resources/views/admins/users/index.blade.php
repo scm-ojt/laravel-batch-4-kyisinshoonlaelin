@@ -23,7 +23,7 @@
                     <td> {{ $user->email }} </td>
                     <td> {{ $user->phone }} </td>
                     <td> {{ $user->address }} </td>
-                    <td><a href="{{ url('users/edit/'.$user->id) }}">Edit</a> 
+                    <td><a href="{{ route('admins.users.edit',$user->id) }}">Edit</a> 
                     <a onclick="return confirm('Are you sure to delete?')" href="{{ url('users/delete/'.$user->id) }}">Delete</a> </td> 
                 </tr>
                 @endforeach

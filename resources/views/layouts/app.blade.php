@@ -13,6 +13,15 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script type="text/javascript">
+	function previewImage(event) {
+		var ofReader = new FileReader();
+		ofReader.readAsDataURL(document.getElementById("fileInput").files[0]);
+		ofReader.onload = function(oFREvent) {
+			document.getElementById("uploadImage").src = oFREvent.target.result;
+		};
+	};
+    </script>
     
     <style>
         .nav-bottom {
@@ -74,15 +83,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        @if (Route::has('categories.list'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('categories.list') }}">{{ __('Category') }}</a>
-                            </li>
-                        @endif
 
-                        @if (Route::has('products.list'))
+                        @if (Route::has('products.user.index'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('products.list') }}">{{ __('Product List') }}</a>
+                                <a class="nav-link" href="{{ route('products.user.index') }}">{{ __('Product List') }}</a>
                             </li>
                         @endif
                     </ul>
@@ -107,7 +111,8 @@
 
                         @else
                             <li class="nav-item dropdown">
-                                <a href="{{ url('users/details/'.Auth::user()->id) }}" id="navbarDropdown" class="nav-link dropdown-toggle text-decoration-none" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a href="{{ route('users.show',Auth::user()->id) }}" class="nav-link" style="display:contents;"><img src="{{ asset(Auth::user()->image->path) }}" width='30' height='30' style="border-radius:50px;"/> </a>
+                                <a href="" id="navbarDropdown" class="nav-link dropdown-toggle text-decoration-none" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="display:contents;">
                                     {{ Auth::user()->name }}
                                 </a>
 

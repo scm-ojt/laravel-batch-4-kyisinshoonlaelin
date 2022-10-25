@@ -22,7 +22,7 @@ class AdminFactory extends Factory
             'email' => 'kssll@gmail.com',
             'phone' => '09-784114719',
             'address' => 'the place where I want to live',
-            'password' => '12345678', // password
+            'password' => Hash::make('12345678'), // password
         ];
     }
 }

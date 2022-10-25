@@ -1,14 +1,14 @@
-@extends('layouts.app')
+@extends('admins.dashboard')
 
 @section('content')
-<div class="container">
+<div class="container" style="padding-top: 19px;">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Edit User') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{route('users.update',$user->id)}}" enctype="multipart/form-data">
+                    <form method="POST" action="{{route('admins.users.update',$user->id)}}" enctype="multipart/form-data">
                         @csrf
                         <div class="image-upload">
                             <label for="fileInput">
@@ -78,7 +78,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Update') }}
                                 </button>
-                                <a href="{{ route('users.show',$user->id) }}" class="btn btn-secondary">
+                                <a href="{{ route('admins.users.list') }}" class="btn btn-secondary">
                                     {{ __('Back') }}
                                 </a>
                             </div>

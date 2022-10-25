@@ -67,7 +67,7 @@ class ProductController extends Controller
         $image -> imageable_type = get_class($product);
         $image -> save();
 
-        return redirect()->route('products.list');
+        return redirect()->route('products.user.index');
     }
 
     /**
@@ -91,18 +91,7 @@ class ProductController extends Controller
     public function index() {
         $products = Product::latest()->paginate(10);
 
-        return view('products.index', compact('products'));
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @return void
-     */
-    public function getProducts() {
-        $products = Product::all();
-
-        return view('products.user.index', compact('products'));
+        return view('admins.products.index', compact('products'));
     }
 
     /**
@@ -116,7 +105,7 @@ class ProductController extends Controller
         $categories = Category::all();
         $product = Product::find($id);
 
-        return view('products.edit', [
+        return view('admins.products.edit', [
             'product' => $product,
             'categories' => $categories
         ]);
@@ -138,19 +127,20 @@ class ProductController extends Controller
         $product -> save();
 
         $category_product = CategoryProduct::where('product_id',$id)->delete();
-        $image_path = public_path('images').'/'.$product->image->name;
-        unlink($image_path);
-        $image = Image::where('imageable_id',$id)->delete();
+        if(isset($request->image)) {
+            $image_path = public_path('images').'/'.$product->image->name;
+            unlink($image_path);
+            $image = Image::where('imageable_id',$id)->delete();
 
-        $image = new Image;
-        $image -> imageable_id = $id;
-        $image -> imageable_type = get_class($product);
-        $imageName = time().'.'.$request->image->extension();     
-        $request->image->move(public_path('images'), $imageName);
-        $image -> name = $imageName;
-        $image -> path = 'images/'.$imageName;
-        $image -> save();
-
+            $image = new Image;
+            $image -> imageable_id = $id;
+            $image -> imageable_type = get_class($product);
+            $imageName = time().'.'.$request->image->extension();     
+            $request->image->move(public_path('images'), $imageName);
+            $image -> name = $imageName;
+            $image -> path = 'images/'.$imageName;
+            $image -> save();
+        }
         $categories = request()->categories;
         foreach($categories as $category) {
             $category_product = new CategoryProduct;
@@ -159,7 +149,7 @@ class ProductController extends Controller
             $category_product -> save();
         }
 
-        return redirect()->route('products.list');
+        return redirect()->route('admins.products.index');
     }
 
     /**
@@ -176,7 +166,7 @@ class ProductController extends Controller
         $product-> delete();
         $image = Image::where('imageable_id',$id)->delete();
 
-        return redirect()->route('products.list');
+        return redirect()->route('admins.products.index');
     }
 
     /**
@@ -197,7 +187,7 @@ class ProductController extends Controller
             ->get();
     
         // Return the search view with the resluts compacted
-        return view('products.search', compact('searchedProducts'));
+        return view('admins.products.search', compact('searchedProducts'));
     }
 
     /**
@@ -206,6 +196,11 @@ class ProductController extends Controller
      * @return void
      */
     public function export() 
+    {
+        return Excel::download(new ProductsExport, 'products.xlsx');
+    }
+
+    public function exportSearch() 
     {
         return Excel::download(new ProductsExport, 'products.xlsx');
     }

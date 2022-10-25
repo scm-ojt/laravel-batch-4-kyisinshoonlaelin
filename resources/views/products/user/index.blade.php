@@ -11,6 +11,8 @@
                 <div class="panel-heading">{{ $product -> title }}</div>
                 <div class="panel-footer">{{ $product -> price }}</div>
                 <a href="{{ url('products/detail/'.$product->id) }}">Details</a> 
+                <a href="{{ url('products/edit/'.$product->id) }}">Edit</a>
+                <a onclick="return confirm('Are you sure to delete?')" href="{{ url('products/delete/'.$product->id) }}">Delete</a>
             </div>
         </div>
     @endforeach

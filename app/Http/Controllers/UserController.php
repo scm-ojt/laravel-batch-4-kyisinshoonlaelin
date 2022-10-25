@@ -22,7 +22,7 @@ class UserController extends Controller
     {
         $users = User::latest()->paginate(10);
 
-        return view('users.list', compact('users')); 
+        return view('admins.users.index', compact('users')); 
     }
 
     public function show($id) {
@@ -51,7 +51,6 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request,User $user)
     {
-      info($user);
         // $user = User::find($id); 
         $user->update([
             'name' => $request->name,
@@ -59,42 +58,18 @@ class UserController extends Controller
             'phone' => $request->phone,
             'address' => $request->address,
         ]);
-
-        $imageName = time().'.'.$request->image->extension(); 
-        $request->image->move(public_path('images'), $imageName);
-        Image::create([
-            'imageable_id' => $user->id,
-            'imageable_type' => get_class($user),
-            'name' => $imageName,
-            'path' => 'images/'.$imageName,
-        ]);
-
-        return redirect()->route('users.list');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $user = User::find($id);
-        $email= $user -> email;
-        $product = Product::where('user_id',$id)->delete();
-        $user->delete();
-
-        Mail::to($email)->send(new NotifyMail());
-
-
- 
-      /* if (Mail::failures()) {
-           return response()->Fail('Sorry! Please try again latter');
-      }else{
-           return response()->success('Great! Successfully send in your mail');
-         } */
-
-        return redirect()->route('users.list');
+        if(isset($request->image)){
+            if($user->image->name != 'profile1.png'){
+                $image_path = $user->image->path;
+                unlink($image_path);
+            }
+            $imageName = time().'.'.$request->image->extension(); 
+            $request->image->move(public_path('images'), $imageName);
+            $image = Image::where('imageable_id', $user->id)->update([
+                'name' => $imageName,
+                'path' => 'images/'.$imageName,
+            ]);
+        }
+        return redirect()->route('users.show',$user->id);
     }
 }

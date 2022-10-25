@@ -1,10 +1,22 @@
-@extends('layouts/app')
+@extends('admins.dashboard')
 
 @section('content')
-<div class="container">
+<div class="container" style="padding-top: 40px">
 @if($searchedProducts->isNotEmpty())
+    <a class="btn btn-info gap" href="{{ route('products.export') }}"> Download Product Data </a> <br><br>
+    <form action="{{ route('products.import') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="file" name="csvFile" class="form-control @error('csvFile') is-invalid @enderror">
+                @error('csvFile')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }} </strong>
+                                </span>
+                @enderror
+                <br>
+                <button class="btn btn-success">Import</button>
+    </form>
         <div class="row justify-content-center">
-        <table>
+        <table class="table">
             <thead>
             <tr>
                 <th>Id</th>
@@ -28,8 +40,8 @@
                         <td> {{ $product->title }} </td>
                         <td> {{ $product->description }} </td>
                         <td> {{ $product->price }} </td>
-                        <td><a href="{{ url('products/edit/'.$product->id) }}">Edit</a> 
-                        <a onclick="return confirm('Are you sure to delete?')" href="{{ url('products/delete/'.$product->id) }}">Delete</a> </td> 
+                        <td><a href="{{ route('admins.products.edit',$product->id) }}">Edit</a> 
+                        <a onclick="return confirm('Are you sure to delete?')" href="{{ ('route('admins.products.delete/'.$product->id) }}">Delete</a> </td> 
                     </tr>
                 @endforeach
             </tbody>
@@ -42,6 +54,6 @@
         </div>
 @endif
     <br>
-    <a class="btn btn-info gap" href="{{ route('products.list') }}"> Back </a>
+    <a class="btn btn-info gap" href="{{ route('admins.products.index') }}"> Back </a>
     </div>
 @endsection

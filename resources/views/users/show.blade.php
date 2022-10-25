@@ -13,7 +13,7 @@
 
 .title {
     text-align:center;
-    margin-top: 35px;
+    margin-top: 30px;
     padding-top: 35px;
 }
 
@@ -56,23 +56,33 @@ a {
 {    
     cursor: pointer;
     position: absolute;
-    top: 137px;
-    left: 668px;
+    top: 209px;
+    left: 664px;
     color: var(--white);
+}
+
+.arrow-gap {
+    margin-top: 35px;
+    margin-left: 18px;
+    float: left;
+}
+
+.clearfix::after {
+    clear: both;
+    content: "";
+    display: table;
 }
 </style>
 </head>
 <body>
 
 <div class="card">
-    <h2><i class="fa fa-arrow-left"></i></h2>
+    <h2 class="clearfix"><a href="{{ route('products.user.index') }}"><i class="fa fa-arrow-left arrow-gap"></i></a></h2>
     <h2 class="title">User Profile</h2>
     <div class="image-upload">
-    <label for="file-input">
-        <img src="{{ asset($user->image->path) }}" height='184.61' width='200' class="img img-responsive"/>
+    <label for="fileInput">
+        <img src="{{ asset($user->image->path) }}" height='184.61' width='200' class="img img-responsive" id="uploadImage"/>
     </label>
-
-    <input id="file-input" type="file"/>
     </div>
     <h1>{{ $user->name }}</h1>
     <p><i class="fa fa-envelope"></i> Email: {{ $user->email }}</p>

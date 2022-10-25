@@ -24,7 +24,6 @@ class ProductUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'required|image|mimes:jpg,png,jpeg,svg',
             'title' => 'required|max:200',
             'description' => 'required|max:700',
             'price' => 'required',

@@ -2,26 +2,26 @@
 
 @section('content')
 <div class="container" style="padding-top:29px;">
-    <!-- <a class="btn btn-info gap" href="{{ route('products.create') }}"> Add Product </a> -->
+    
     <a class="btn btn-info gap" href="{{ route('products.export') }}"> Download Product Data </a> <br><br>
     <form action="{{ route('products.import') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <input type="file" name="csvFile" class="form-control @error('csvFile') is-invalid @enderror">
+                <input type="file" name="csvFile" class="form-control @error('csvFile') is-invalid @enderror col-5 float-left">
                 @error('csvFile')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }} </strong>
                                 </span>
                 @enderror
-                <br>
-                <button class="btn btn-success">Import</button>
-            </form>
-    <form action="{{ route('products.search') }}" method="GET" style="float:right">
-        <input type="text" name="search" required/>
+                <button class="btn btn-success mx-3">Import</button>
+    </form>
+    <br>
+    <form action="{{ route('products.search') }}" method="GET">
+        <input type="text" name="search" required />
         <button type="submit">Search</button>
     </form>
-
+    <br>
     <div class="row justify-content-center">
-        <table>
+        <table class="table">
             <thead>
             <tr>
                 <th>Id</th>
@@ -44,11 +44,11 @@
                          @endforeach
                     </td>
                     <td> {{ $product->title }} </td>
-                    <td> <img src="{{ asset($product->image?->path) }}" width= '50' height='50' class="img img-responsive"/> </td>
+                    <td> <img src="{{ asset($product->image?->path) }}" width= '70' height='70' class="img img-responsive"/> </td>
                     <td> {{ $product->description }} </td>
                     <td> {{ $product->price }} </td>
                     <td>
-                    <a href="{{ url('products/edit/'.$product->id) }}">Edit</a> 
+                    <a href="{{ route('admins.products.edit',$product->id) }}">Edit</a> 
                     <a onclick="return confirm('Are you sure to delete?')" href="{{ url('products/delete/'.$product->id) }}">Delete</a> </td> 
                 </tr>
                 @endforeach
