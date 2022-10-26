@@ -12,7 +12,7 @@
                         @csrf
                         <div class="">
                                 <label><strong>Select Category :</strong></label><br/>
-                                <select class="selectpicker @error('categories') is-invalid @enderror" multiple data-live-search="true" name="categories[]">
+                                <select id="categories" class="selectpicker @error('categories') is-invalid @enderror" multiple data-live-search="true" name="categories[]">
                                     @foreach($categories as $category)
                                         <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
                                     @endforeach

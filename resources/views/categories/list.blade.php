@@ -5,7 +5,7 @@
 <div class="container" style="padding-top:29px">
     <a class="btn btn-info gap" href="{{ route('categories.create') }}"> Add Category </a> <br><br>
     <div class="row justify-content-center">
-        <table class="table">
+        <table class="table table-success table-striped">
             <thead>
             <tr>
                 <th>Id</th>
@@ -18,8 +18,8 @@
                 <tr>
                     <td> {{ $category->id }} </td>
                     <td> {{ $category->name }} </td>
-                    <td><a href="{{ route('categories.edit',$category->id) }}">Edit</a> 
-                    <a onclick="return confirm('Are you sure to delete?')" href="{{ route('categories.delete',$category->id) }}">Delete</a> </td> 
+                    <td><a class="btn btn-success btn-xs" href="{{ route('categories.edit',$category->id) }}"><i class="fas fa-edit"></i> Edit</a> 
+                    <a class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete?')" href="{{ route('categories.delete',$category->id) }}"><i class="fa fa-trash"></i> Delete</a> </td> 
                 </tr>
                 @endforeach
             </tbody>

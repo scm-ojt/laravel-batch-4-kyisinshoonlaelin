@@ -1,12 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SendEmailController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\LoginController;
-use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RegisterController;
+use App\Http\Controllers\Admin\AdminProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,12 +22,18 @@ use App\Http\Controllers\Admin\RegisterController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    //return view('welcome');
+    return redirect()->route('products.user.index');
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/home', function () {
+    
+    return redirect()->route('products.user.index');
+});
 
 Route::group(['middleware' => 'auth'],function(){
     Route::get('/products/create',[ProductController::class, 'create'])->name('products.create');
@@ -55,20 +63,21 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('dashboard', function () {
             return view('admins.dashboard');
         })->name('adminDashboard');
-        Route::get('/products/edit/{id}',[ProductController::class, 'edit'])->name('admins.products.edit');
-        Route::post('/products/edit/{id}',[ProductController::class, 'update'])->name('admin.products.update');
-        Route::get('/products/list',[ProductController::class, 'index'])->name('admins.products.index');
-        Route::get('/products/search',[ProductController::class, 'search'])->name('products.search');
-        Route::get('/products/export',[ProductController::class, 'export'])->name('products.export');
-        Route::get('/products/export/search',[ProductController::class, 'exportSearch'])->name('products.exportSearch');
-        Route::post('/products/import',[ProductController::class, 'import'])->name('products.import');
+        Route::get('/products/edit/{id}',[AdminProductController::class, 'edit'])->name('admins.products.edit');
+        Route::post('/products/edit/{id}',[AdminProductController::class, 'update'])->name('admin.products.update');
+        Route::get('/products/delete/{id}',[AdminProductController::class, 'destroy'])->name('admins.products.delete');
+        Route::get('/products/list',[AdminProductController::class, 'index'])->name('admins.products.index');
+        Route::get('/products/search',[AdminProductController::class, 'index'])->name('products.search');
+        Route::get('/products/export',[AdminProductController::class, 'index'])->name('products.export');
+        Route::get('/products/export/search',[AdminProductController::class, 'exportSearch'])->name('products.exportSearch');
+        Route::post('/products/import',[AdminProductController::class, 'import'])->name('products.import');
 
-        Route::get('/admins/users/create',[UserController::class, 'create'])->name('admins.users.create');
-        Route::post('/admins/users/create',[UserController::class, 'store'])->name('admins.users.store');
-        Route::get('/users/index', [UserController::class, 'index'])->name('admins.users.list');
-        Route::get('/users/edit/{user}',[UserController::class, 'edit'])->name('admins.users.edit');
-        Route::post('users/edit/{user}', [UserController::class, 'update'])->name('admins.users.update');
-        Route::get('users/delete/{id}',[UserController::class, 'destroy'])->name('users.destroy');
+        Route::get('/admins/users/create',[AdminUserController::class, 'create'])->name('admins.users.create');
+        Route::post('/admins/users/create',[AdminUserController::class, 'store'])->name('admins.users.store');
+        Route::get('/users/index', [AdminUserController::class, 'index'])->name('admins.users.list');
+        Route::get('/users/edit/{user}',[AdminUserController::class, 'edit'])->name('admins.users.edit');
+        Route::post('users/edit/{user}', [AdminUserController::class, 'update'])->name('admins.users.update');
+        Route::get('users/delete/{id}',[AdminUserController::class, 'destroy'])->name('users.destroy');
 
         Route::get('/categories/create',[CategoryController::class, 'create'])->name('categories.create');
         Route::post('/categories/create',[CategoryController::class, 'store'])->name('categories.store');

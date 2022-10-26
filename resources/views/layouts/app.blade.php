@@ -12,7 +12,14 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/example-styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/demo-styles.css') }}">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script type="text/javascript" src="{{ asset('js/jquery-2.2.4.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.multi-select.js') }}"></script>
     <script type="text/javascript">
 	function previewImage(event) {
 		var ofReader = new FileReader();
@@ -21,6 +28,9 @@
 			document.getElementById("uploadImage").src = oFREvent.target.result;
 		};
 	};
+    $(function(){
+        $('#categories').multiSelect();
+    });
     </script>
     
     <style>
@@ -40,7 +50,7 @@
         }
         .category li {
             float: left;
-            padding: 16px;
+            padding: 3px;
         }
         .image-upload {
             height: 170px;
@@ -74,7 +84,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    SHOP.COM
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

@@ -31,6 +31,9 @@
     <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/example-styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/demo-styles.css') }}">
+
     <style>
          .image-upload {
             height: 170px;
@@ -58,11 +61,6 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-        <!-- Preloader -->
-        <!-- {{-- <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="../dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60"
-                width="60">
-        </div> --}} -->
         
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -72,9 +70,9 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
                             class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
+                <!-- <li class="nav-item d-none d-sm-inline-block">
                     <a href="index3.html" class="nav-link">Home</a>
-                </li>
+                </li> -->
             </ul>                
         </nav>
         <!-- /.navbar -->
@@ -119,16 +117,6 @@
                         data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                        <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
-                                <i class="nav-icon fas fa-tachometer-alt" style="font-size: 17px"></i>
-                                <p>
-                                    Dashboard
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-
-                        </li>
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -167,7 +155,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('admins.products.index') }}" class="nav-link">
+                                    <a href="{{ route('admins.products.index') }}" class="nav-link active">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>List</p>
                                     </a>
@@ -287,6 +275,13 @@
     <!-- daterangepicker -->
     <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
     <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/js/jquery-2.2.4.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/js/jquery.multi-select.js') }}"></script>
+    <script type="text/javascript">
+    $(function(){
+        $('#categories').multiSelect();
+    });
+    </script>
 </body>
 
 </html>

@@ -10,6 +10,7 @@ use App\Exports\ProductsExport;
 use App\Imports\ProductsImport;
 use App\Models\CategoryProduct;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\ProductCreateRequest;
 use App\Http\Requests\ProductUpdateRequest;
@@ -111,11 +112,17 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $product = Product::find($id);
-
-        return view('products.edit', [
-            'product' => $product,
-            'categories' => $categories
-        ]);
+        
+        if( Gate::allows('product-edit', $product) ) {
+            
+            return view('products.edit', [
+                'product' => $product,
+                'categories' => $categories
+            ]);
+        } else {
+            return back()->with('error', 'Unauthorize');
+        }
+        
     }
 
     /**
@@ -168,12 +175,18 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
-        $image_path = public_path('images').'/'.$product->image->name;
-        unlink($image_path);
-        $product-> delete();
-        $image = Image::where('imageable_id',$id)->delete();
 
-        return redirect()->route('products.user.index');
+        if( Gate::allows('product-delete', $product) ) {            
+            $image_path = public_path('images').'/'.$product->image->name;
+            unlink($image_path);
+            $product-> delete();
+            $image = Image::where('imageable_id',$id)->delete();
+
+            return redirect()->route('products.user.index');
+        } else {
+            return back()->with('error', 'Unauthorize');
+        }
+        
     }
 
     /**

@@ -42,7 +42,7 @@ class CategoryController extends Controller
      * @return void
      */
     public function list() {
-        $categories = Category::latest()->paginate(10);
+        $categories = Category::latest()->paginate(7);
 
         return view('categories.list', compact('categories'));
     }
