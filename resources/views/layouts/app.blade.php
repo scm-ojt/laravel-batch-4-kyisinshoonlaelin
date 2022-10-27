@@ -58,20 +58,27 @@
             border-radius: 50%;
             margin: 75px auto 0px auto;
             overflow-y: hidden;
-        }
+        } 
 
         .image-upload > input
         {
             display: none;
         }
 
-        .image-upload img
+        .profile
         {    
             cursor: pointer;
-            position: absolute;
             top: 80px;
             left: 322px;
             color: var(--white);
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .camera {
+            position: absolute;
+            top: 20px;
+            left: 30px;
         }
     </style>
 

@@ -70,6 +70,7 @@ class UserController extends Controller
                 'path' => 'images/'.$imageName,
             ]);
         }
+        
         return redirect()->route('users.show',$user->id);
     }
 }

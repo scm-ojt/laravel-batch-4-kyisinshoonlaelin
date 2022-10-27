@@ -3,10 +3,10 @@
 @section('content')
 </script>
 <div class="container pt-5">
-    <a class="btn btn-info gap" href="{{ route('admins.users.create') }}"> Add User </a> <br><br>
+    <a class="btn btn-info gap" href="{{ route('admins.users.create') }}"><i class="fa fa-plus" aria-hidden="true"></i> Add User </a> <br><br>
     <div class="row justify-content-center">
         <table class="table table-success table-striped">
-            <thead>
+            <thead class="table-light">
             <tr>
                 <th>Id</th>
                 <th>Name</th>
@@ -25,7 +25,7 @@
                     <td> {{ $user->phone }} </td>
                     <td> {{ $user->address }} </td>
                     <td><a class="btn btn-xs btn-success" href="{{ route('admins.users.edit',$user->id) }}"><i class="fas fa-edit"></i> Edit</a> 
-                    <a class="btn btn-xs btn-danger" onclick="return confirm('Are you sure to delete?')" href="{{ url('users/delete/'.$user->id) }}"><i class="fa fa-trash"></i> Delete</a> </td> 
+                    <a class="btn btn-xs btn-danger" onclick="return confirm('Are you sure to delete?')" href="{{ route('admins.users.destroy',$user->id) }}"><i class="fa fa-trash"></i> Delete</a> </td> 
                 </tr>
                 @endforeach
             </tbody>

@@ -281,6 +281,13 @@
     $(function(){
         $('#categories').multiSelect();
     });
+	function previewImage(event) {
+		var ofReader = new FileReader();
+		ofReader.readAsDataURL(document.getElementById("fileInput").files[0]);
+		ofReader.onload = function(oFREvent) {
+			document.getElementById("uploadImage").src = oFREvent.target.result;
+		};
+	};
     </script>
 </body>
 

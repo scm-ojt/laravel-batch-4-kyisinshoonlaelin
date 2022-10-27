@@ -72,12 +72,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('/products/export/search',[AdminProductController::class, 'exportSearch'])->name('products.exportSearch');
         Route::post('/products/import',[AdminProductController::class, 'import'])->name('products.import');
 
-        Route::get('/admins/users/create',[AdminUserController::class, 'create'])->name('admins.users.create');
-        Route::post('/admins/users/create',[AdminUserController::class, 'store'])->name('admins.users.store');
+        Route::get('/users/create',[AdminUserController::class, 'create'])->name('admins.users.create');
+        Route::post('/users/create',[AdminUserController::class, 'store'])->name('admins.users.store');
         Route::get('/users/index', [AdminUserController::class, 'index'])->name('admins.users.list');
         Route::get('/users/edit/{user}',[AdminUserController::class, 'edit'])->name('admins.users.edit');
         Route::post('users/edit/{user}', [AdminUserController::class, 'update'])->name('admins.users.update');
-        Route::get('users/delete/{id}',[AdminUserController::class, 'destroy'])->name('users.destroy');
+        Route::get('users/delete/{id}',[AdminUserController::class, 'destroy'])->name('admins.users.destroy');
 
         Route::get('/categories/create',[CategoryController::class, 'create'])->name('categories.create');
         Route::post('/categories/create',[CategoryController::class, 'store'])->name('categories.store');

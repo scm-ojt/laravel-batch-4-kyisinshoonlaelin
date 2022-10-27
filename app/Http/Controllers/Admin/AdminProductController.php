@@ -20,6 +20,7 @@ class AdminProductController extends Controller
 {
     /* public function __construct()
     {
+        //delete yann #KMT
         $this->middleware('auth')->except(['getProducts', 'show', 'index']);
     } */
 
@@ -32,6 +33,7 @@ class AdminProductController extends Controller
     {
         $categories = Category::all();
 
+        //view folder name change pay yann #KMT
         return view('/products/create', compact('categories'));
     }
 
@@ -44,7 +46,7 @@ class AdminProductController extends Controller
     public function store(ProductCreateRequest $request)
     {
         $product = new Product;
-        $product ->user_id = auth()->user()->id;
+        $product ->user_id = auth()->user()->id; //just use auth()->id() #KMT
         $product->title = request()->title;
         $product->description = request()->description;
         $product->price = request()->price;
@@ -79,6 +81,7 @@ class AdminProductController extends Controller
      */
     public function show($id)
     {
+        //#KMT
         $product = Product::find($id);
 
         return view('products.show', compact('product'));
@@ -169,7 +172,6 @@ class AdminProductController extends Controller
         }
         $product-> delete();
         
-
         return redirect()->route('admins.products.index');
     }
 
@@ -214,6 +216,7 @@ class AdminProductController extends Controller
             else{
                 $products = Product::orderBy('id', 'desc')->paginate(10);
             }
+
             return view('admins.products.index', [
                 'products' => $products,
                 'search' => $request->search,

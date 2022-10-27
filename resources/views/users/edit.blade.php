@@ -12,7 +12,8 @@
                         @csrf
                         <div class="image-upload">
                             <label for="fileInput">
-                                <img src="{{ asset($user->image->path) }}" height='184.61' width='200' class="img img-responsive" id="uploadImage"/>
+                                <img src="{{ asset($user->image->path) }}" height='184.61' width='200' class="img img-responsive profile" id="uploadImage"/>
+                                <img src="{{ asset('/images/camera.png') }}" height='30' width='30' class="camera" />
                             </label>
 
                             <input id="fileInput" type="file" name="image" onchange="previewImage();"/>

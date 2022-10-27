@@ -50,21 +50,11 @@ class LoginController extends Controller
             $user = auth()->guard('admin')->user();
             // return $user;
             if($user->id == 1){
-                return redirect()->route('adminDashboard')->with('success','You are Logged in sucessfully.');
+                return redirect()->route('admins.products.index')->with('success','You are Logged in sucessfully.');
             }
         }else {
             return back()->with('error','Whoops! invalid email and password.');
-        }
-        $admins = Admin::all();
-        foreach($admins as $admin) {
-            //return $admin->password == $request->password;
-            if($admin->email == $request->email && $admin->password == $request->password) {
-
-                return redirect()->route('admins.dashboard');
-            }
-            
-        }
-        
+        }       
         return view('accessDenied');
     }
 

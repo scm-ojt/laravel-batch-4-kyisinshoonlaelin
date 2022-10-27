@@ -3,10 +3,10 @@
 @section('content')
 </script>
 <div class="container" style="padding-top:29px">
-    <a class="btn btn-info gap" href="{{ route('categories.create') }}"> Add Category </a> <br><br>
+    <a class="btn btn-info gap" href="{{ route('categories.create') }}"><i class="fa fa-plus" aria-hidden="true"></i> Add Category </a> <br><br>
     <div class="row justify-content-center">
         <table class="table table-success table-striped">
-            <thead>
+            <thead class="table-light">
             <tr>
                 <th>Id</th>
                 <th>Name</th>

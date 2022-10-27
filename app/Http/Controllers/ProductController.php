@@ -37,10 +37,10 @@ class ProductController extends Controller
      */
     public function store(ProductCreateRequest $request)
     {
-        $validated = $request->validated();
+        $validated = $request->validated(); #KMT
 
         $product = new Product;
-        $product ->user_id = auth()->user()->id;
+        $product ->user_id = auth()->user()->id; #KMT
         $product->title = request()->title;
         $product->description = request()->description;
         $product->price = request()->price;
@@ -75,7 +75,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id);
+        $product = Product::find($id); 
 
         return view('products.show', compact('product'));
     }
@@ -97,7 +97,7 @@ class ProductController extends Controller
      * @return void
      */
     public function getProducts() {
-        $products = Product::all();
+        $products = Product::all(); 
 
         return view('products.user.index', compact('products'));
     }
@@ -112,7 +112,7 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $product = Product::find($id);
-        
+        // find another way if u can #KMT
         if( Gate::allows('product-edit', $product) ) {
             
             return view('products.edit', [

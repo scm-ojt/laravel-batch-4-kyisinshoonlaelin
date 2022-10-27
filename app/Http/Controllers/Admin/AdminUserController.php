@@ -118,13 +118,6 @@ class AdminUserController extends Controller
         return redirect()->route('admins.users.list');
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     /**
      * Remove the specified resource from storage.
      *
@@ -133,6 +126,7 @@ class AdminUserController extends Controller
      */
     public function destroy($id)
     {
+        // #KMT
         $user = User::find($id);
         $email= $user -> email;
         $product = Product::where('user_id',$id)->delete();

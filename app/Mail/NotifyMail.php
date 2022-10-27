@@ -30,6 +30,6 @@ class NotifyMail extends Mailable
      */
     public function build()
     {
-        return $this->from('scm.kyisinshoonlaelinn@gmail.com')->subject('Notify for deleting one product entry')->view('adminLte.sendEmail');
+        return $this->from('scm.kyisinshoonlaelinn@gmail.com')->subject('Notify for Banning your account!')->view('admins.sendEmail');
     }
 }
