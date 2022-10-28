@@ -18,25 +18,6 @@ use App\Http\Requests\ProductUpdateRequest;
 
 class AdminProductController extends Controller
 {
-    /* public function __construct()
-    {
-        //delete yann #KMT
-        $this->middleware('auth')->except(['getProducts', 'show', 'index']);
-    } */
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $categories = Category::all();
-
-        //view folder name change pay yann #KMT
-        return view('/products/create', compact('categories'));
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -46,7 +27,7 @@ class AdminProductController extends Controller
     public function store(ProductCreateRequest $request)
     {
         $product = new Product;
-        $product ->user_id = auth()->user()->id; //just use auth()->id() #KMT
+        $product ->user_id = auth()->id();
         $product->title = request()->title;
         $product->description = request()->description;
         $product->price = request()->price;
@@ -74,40 +55,14 @@ class AdminProductController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //#KMT
-        $product = Product::find($id);
-
-        return view('products.show', compact('product'));
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @return void
-     */
-   /*  public function index() {
-        $products = Product::latest()->paginate(10);
-
-        return view('admins.products.index', compact('products'));
-    } */
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
         $categories = Category::all();
-        $product = Product::find($id);
 
         return view('admins.products.edit', [
             'product' => $product,

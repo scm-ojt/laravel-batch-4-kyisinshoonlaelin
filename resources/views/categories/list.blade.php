@@ -5,7 +5,7 @@
 <div class="container" style="padding-top:29px">
     <a class="btn btn-info gap" href="{{ route('categories.create') }}"><i class="fa fa-plus" aria-hidden="true"></i> Add Category </a> <br><br>
     <div class="row justify-content-center">
-        <table class="table table-success table-striped">
+        <table class="table table-secondary table-striped col-sm-4 clearfix">
             <thead class="table-light">
             <tr>
                 <th>Id</th>
@@ -24,9 +24,10 @@
                 @endforeach
             </tbody>
         </table>
-        <div class="d-flex">
+        
+    </div> <br>
+    <div class="d-flex">
             {{ $categories->links() }}
-        </div>
     </div>
 </div>
 

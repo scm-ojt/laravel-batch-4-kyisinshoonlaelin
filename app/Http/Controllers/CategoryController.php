@@ -28,7 +28,6 @@ class CategoryController extends Controller
      */
     public function store(CategoryCreateRequest $request)
     {
-        $validated = $request->validated();  #KMT
         $category = new Category;
         $category->name = request()->name;
         $category->save();
@@ -70,7 +69,6 @@ class CategoryController extends Controller
      */
     public function update(CategoryUpdateRequest $request, $id)
     {
-        $validated = $request->validated(); #KMT
         $category = Category::find($id);
         $category->name = request()->name;
         $category->save();

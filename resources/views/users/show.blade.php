@@ -11,12 +11,6 @@
   font-family: arial;
 }
 
-.title {
-    text-align:center;
-    margin-top: 30px;
-    padding-top: 35px;
-}
-
 button {
   border: none;
   outline: 0;
@@ -27,10 +21,12 @@ button {
   text-align: center;
   cursor: pointer;
   font-size: 18px;
+  border-radius: 5px;
 }
 
 .btn-padding {
-    margin-bottom: 35px;
+    margin-bottom: 56px;
+    margin-top: 30px;
 }
 
 a {
@@ -43,7 +39,7 @@ a {
     height: 170px;
     width: 170px;
     border-radius: 50%;
-    margin: 75px auto 0px auto;
+    margin: 80px auto 0px auto;
     overflow-y: hidden;
 }
 
@@ -56,7 +52,7 @@ a {
 {    
     cursor: pointer;
     position: absolute;
-    top: 209px;
+    top: 170px;
     left: 664px;
     color: var(--white);
 }
@@ -78,7 +74,7 @@ a {
 
 <div class="card">
     <h2 class="clearfix"><a href="{{ route('products.user.index') }}"><i class="fa fa-arrow-left arrow-gap"></i></a></h2>
-    <h2 class="title">User Profile</h2>
+    <h2 class="text-center mt-5">User Profile</h2>
     <div class="image-upload">
     <label for="fileInput">
         <img src="{{ asset($user->image->path) }}" height='184.61' width='200' class="img img-responsive" id="uploadImage"/>
@@ -88,7 +84,7 @@ a {
     <p><i class="fa fa-envelope"></i> Email: {{ $user->email }}</p>
     <p><i class="fa fa-phone"></i> Phone: {{ $user->phone }}</p>
     <p><i class="fa fa-address-card"></i> Address: {{ $user->address }}</p>
-    <a href="{{ url('users/edit/'.$user->id) }}"><button class="btn btn-primary btn-padding">Edit Profile</button></a>
+    <a href="{{ url('users/edit/'.$user->id) }}"><button class="btn btn-padding">Edit Profile</button></a>
 </div>
 
 </body>

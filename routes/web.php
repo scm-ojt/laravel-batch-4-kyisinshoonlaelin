@@ -38,22 +38,16 @@ Route::get('/home', function () {
 Route::group(['middleware' => 'auth'],function(){
     Route::get('/products/create',[ProductController::class, 'create'])->name('products.create');
     Route::post('/products/create',[ProductController::class, 'store'])->name('products.store');
-    
-    Route::get('/users/details/{id}',[UserController::class, 'show'])->name('users.show');
-    Route::get('/users/edit/{user}',[UserController::class, 'edit'])->name('users.edit');
-    Route::post('users/edit/{user}', [UserController::class, 'update'])->name('users.update');
     Route::get('/products/edit/{id}',[ProductController::class, 'edit'])->name('products.edit');
     Route::post('/products/edit/{id}',[ProductController::class, 'update'])->name('products.update');
     Route::get('/products/delete/{id}',[ProductController::class, 'destroy'])->name('products.delete');
+    Route::get('/users/details/{user}',[UserController::class, 'show'])->name('users.show');
+    Route::get('/users/edit/{user}',[UserController::class, 'edit'])->name('users.edit');
+    Route::post('users/edit/{user}', [UserController::class, 'update'])->name('users.update');    
 });
 
 Route::get('/products/index',[ProductController::class, 'getProducts'])->name('products.user.index');
 Route::get('/products/detail/{id}',[ProductController::class, 'show'])->name('products.show');
-
-Route::get('/admins/dashboard',[LoginController::class, 'showDashboard'])->name('admins.dashboard');
-Route::get('/admins/users/list',[LoginController::class, 'showDashboard'])->name('admins.dashboard');
-
-Route::get('/sendEmail/{id}', [SendEmailController::class, 'index'])->name('adminLte.sendEmail');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::get('/login', [LoginController::class, 'create'])->name('admins.loginCreate');
@@ -63,13 +57,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('dashboard', function () {
             return view('admins.dashboard');
         })->name('adminDashboard');
-        Route::get('/products/edit/{id}',[AdminProductController::class, 'edit'])->name('admins.products.edit');
+        Route::get('/products/edit/{product}',[AdminProductController::class, 'edit'])->name('admins.products.edit');
         Route::post('/products/edit/{id}',[AdminProductController::class, 'update'])->name('admin.products.update');
         Route::get('/products/delete/{id}',[AdminProductController::class, 'destroy'])->name('admins.products.delete');
         Route::get('/products/list',[AdminProductController::class, 'index'])->name('admins.products.index');
-        Route::get('/products/search',[AdminProductController::class, 'index'])->name('products.search');
         Route::get('/products/export',[AdminProductController::class, 'index'])->name('products.export');
-        Route::get('/products/export/search',[AdminProductController::class, 'exportSearch'])->name('products.exportSearch');
         Route::post('/products/import',[AdminProductController::class, 'import'])->name('products.import');
 
         Route::get('/users/create',[AdminUserController::class, 'create'])->name('admins.users.create');
@@ -77,7 +69,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('/users/index', [AdminUserController::class, 'index'])->name('admins.users.list');
         Route::get('/users/edit/{user}',[AdminUserController::class, 'edit'])->name('admins.users.edit');
         Route::post('users/edit/{user}', [AdminUserController::class, 'update'])->name('admins.users.update');
-        Route::get('users/delete/{id}',[AdminUserController::class, 'destroy'])->name('admins.users.destroy');
+        Route::get('users/delete/{user}',[AdminUserController::class, 'destroy'])->name('admins.users.destroy');
+        Route::get('/sendEmail/{id}', [SendEmailController::class, 'index'])->name('adminLte.sendEmail');
 
         Route::get('/categories/create',[CategoryController::class, 'create'])->name('categories.create');
         Route::post('/categories/create',[CategoryController::class, 'store'])->name('categories.store');

@@ -3,9 +3,9 @@
 @section('content')
 </script>
 <div class="container pt-5">
-    <a class="btn btn-info gap" href="{{ route('admins.users.create') }}"><i class="fa fa-plus" aria-hidden="true"></i> Add User </a> <br><br>
+    <a class="btn btn-info gap" href="{{ route('admins.users.create') }}"><i class="fa fa-plus-circle"></i> Add User </a> <br><br>
     <div class="row justify-content-center">
-        <table class="table table-success table-striped">
+        <table class="table table-secondary table-striped">
             <thead class="table-light">
             <tr>
                 <th>Id</th>

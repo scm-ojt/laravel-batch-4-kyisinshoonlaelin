@@ -66,17 +66,6 @@ class AdminUserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -124,12 +113,10 @@ class AdminUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        // #KMT
-        $user = User::find($id);
         $email= $user -> email;
-        $product = Product::where('user_id',$id)->delete();
+        $product = Product::where('user_id',$user->id)->delete();
         $user->delete();
 
         Mail::to($email)->send(new NotifyMail());

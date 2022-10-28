@@ -72,13 +72,12 @@
             left: 322px;
             color: var(--white);
             position: absolute;
-            border-radius: 50%;
         }
 
         .camera {
             position: absolute;
-            top: 20px;
-            left: 30px;
+            top: 227px;
+            left: 473px;
         }
     </style>
 

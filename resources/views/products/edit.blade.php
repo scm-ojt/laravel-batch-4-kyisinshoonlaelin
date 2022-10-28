@@ -12,7 +12,7 @@
                         @csrf
                         <div class="">
                                 <label><strong>Select Category :</strong></label><br/>
-                                <select id="categories" class="selectpicker" multiple data-live-search="true" name="categories[]">
+                                <select id="categories" class="selectpicker" multiple data-live-search="true" name="categories[]" >
                                     @foreach($categories as $category)
                                         <option value="{{ $category['id'] }}" @foreach($product->categories as $categoryFromDb) @if($category['id'] == $categoryFromDb['id']) selected @endif @endforeach > {{ $category['name'] }}</option>
                                     @endforeach

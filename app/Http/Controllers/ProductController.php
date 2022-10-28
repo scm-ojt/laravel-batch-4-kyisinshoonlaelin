@@ -26,7 +26,7 @@ class ProductController extends Controller
     {
         $categories = Category::all();
 
-        return view('/products/create', compact('categories'));
+        return view('products.create', compact('categories'));
     }
 
     /**
@@ -37,21 +37,19 @@ class ProductController extends Controller
      */
     public function store(ProductCreateRequest $request)
     {
-        $validated = $request->validated(); #KMT
-
         $product = new Product;
-        $product ->user_id = auth()->user()->id; #KMT
-        $product->title = request()->title;
-        $product->description = request()->description;
-        $product->price = request()->price;
+        $product ->user_id = auth()->id();
+        $product->title = $request->title;
+        $product->description = $request->description;
+        $product->price = $request->price;
         $product->save();
 
         $last_id = $product -> id;
         
-        for ($i = 0; $i < count(request()->categories); $i++) {
+        for ($i = 0; $i < count($request->categories); $i++) {
             $category_product = new CategoryProduct;
             $category_product -> product_id = $last_id;
-            $category_product -> category_id =  request()->categories[$i];
+            $category_product -> category_id =  $request->categories[$i];
             $category_product -> save();
         }
 
@@ -85,19 +83,18 @@ class ProductController extends Controller
      *
      * @return void
      */
-    public function index() {
-        $products = Product::latest()->paginate(10);
+    public function getProducts(Request $request) {
+        if($request->isMethod('get')) {
+            if($request->has('searchSubmit')) {
+                $products = Product::where('title','LIKE','%'.$request->search.'%')->paginate(10);            
+            }
+            else{
+                $products = Product::latest()->paginate(10);
+            }
 
-        return view('products.index', compact('products'));
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @return void
-     */
-    public function getProducts() {
-        $products = Product::all(); 
+            return view('products.user.index', compact('products'));
+        }
+        $products = Product::latest()->paginate(8); 
 
         return view('products.user.index', compact('products'));
     }

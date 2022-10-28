@@ -24,7 +24,7 @@
     
     <br>
     <div class="row justify-content-center">
-        <table class="table table-success table-striped">
+        <table class="table table-secondary table-striped">
             <thead class="table-light">
             <tr>
                 <th class="align-middle text-center">Id</th>
