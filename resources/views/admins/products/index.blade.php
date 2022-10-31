@@ -17,7 +17,7 @@
     </form>
     <br>
     <form action="{{ route('admins.products.index') }}" method="GET">
-        <input name="search" type="search" required value="{{ $search }}" />
+        <input name="search" type="search" value="{{ $search }}" />
         <button name="searchSubmit" type="submit">Search</button> <br><br>
         <button class="btn btn-info" name="export" type="submit">Export</button> <br><br>
     </form>
@@ -62,7 +62,7 @@
                 @endforeach
             </tbody>
         </table>
-        <div class="d-flex">
+        <div class="d-flex mb-4">
                 {{ $products->links() }}
         </div>
     </div>

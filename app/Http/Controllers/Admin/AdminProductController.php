@@ -160,16 +160,23 @@ class AdminProductController extends Controller
     {
         if($request->isMethod('get')) {
             if($request->has('searchSubmit')) {
-                $products = Product::where('title','LIKE','%'.$request->search.'%')->paginate(10);
-                
+                if(!isset($request->search)) {
+                    return redirect()->route('admins.products.index');
+                }
+                    $products = Product::where('title','LIKE','%'.$request->search.'%')->paginate(7);
             }
             else if($request->has('export')) {
-                $exportProducts = Product::where('title','LIKE','%'.$request->search.'%')->get();
+                if(isset($request->search)) {
+                    $exportProducts = Product::where('title','LIKE','%'.$request->search.'%')->get();
+                }
+                else {
+                    $exportProducts = Product::all();
+                }
 
-                return Excel::download(new ProductsExport($exportProducts), 'products.xlsx');
+                return Excel::download(new ProductsExport($exportProducts), 'products.csv');
             }
             else{
-                $products = Product::orderBy('id', 'desc')->paginate(10);
+                $products = Product::orderBy('id', 'desc')->paginate(7);
             }
 
             return view('admins.products.index', [

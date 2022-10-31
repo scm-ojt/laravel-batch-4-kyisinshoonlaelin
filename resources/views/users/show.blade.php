@@ -84,7 +84,10 @@ a {
     <p><i class="fa fa-envelope"></i> Email: {{ $user->email }}</p>
     <p><i class="fa fa-phone"></i> Phone: {{ $user->phone }}</p>
     <p><i class="fa fa-address-card"></i> Address: {{ $user->address }}</p>
-    <a href="{{ url('users/edit/'.$user->id) }}"><button class="btn btn-padding">Edit Profile</button></a>
+    @if($user->id == auth()->id()) 
+        <a href="{{ url('users/edit/'.$user->id) }}"><button class="btn btn-padding">Edit Profile</button></a>
+    @endif
+    <br> <br> 
 </div>
 
 </body>

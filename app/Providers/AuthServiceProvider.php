@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -31,6 +33,9 @@ class AuthServiceProvider extends ServiceProvider
         });
         Gate::define('product-delete', function($user, $product) {
             return $user->id == $product->user_id;
+        });
+        Gate::define('user-edit', function($user, $profileUser) {
+            return $user->id == $profileUser->id;
         });
     }
 }
