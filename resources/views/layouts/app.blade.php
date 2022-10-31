@@ -102,31 +102,37 @@
 
                         @if (Route::has('products.user.index'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('products.user.index') }}">{{ __('Product List') }}</a>
+                                <a class="nav-link" href="{{ route('products.user.index') }}">{{ __('message.productList') }}</a>
                             </li>
                         @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
+                        <div class="col-md-2 mx-3">
+                    <strong>{{__('message.language')}} </strong>
+                </div>
+                <div class="col-md-4 mx-3">
+                    <select class="form-control changeLang">
+                        <option value="en" {{ session()->get('locale') == 'en' ? 'selected' : '' }}>{{ __('message.english')}}</option>
+                        <option value="myan" {{ session()->get('locale') == 'myan' ? 'selected' : '' }}>{{ __('message.myanmar')}}</option>
+                    </select>
+                </div>
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('message.login') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('message.register') }}</a>
                                 </li>
                             @endif
-
-                            
-
                         @else
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown">       
                                 <a href="{{ route('users.show',Auth::user()->id) }}" class="nav-link" style="display:contents;"><img src="{{ asset(Auth::user()->image->path) }}" width='30' height='30' style="border-radius:50px;"/> </a>
                                 <a href="" id="navbarDropdown" class="nav-link dropdown-toggle text-decoration-none" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="display:contents;">
                                     {{ Auth::user()->name }}
@@ -136,14 +142,14 @@
                                     <a class="dropdown-item border-bottom" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('message.logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                     <a class="dropdown-item" href="{{ route('users.show',Auth::user()->id) }}">
-                                        {{ __('Profile') }}
+                                        {{ __('message.profile') }}
                                     </a>
                                 </div>
                             </li>
@@ -158,4 +164,13 @@
         </main>
     </div>
 </body>
+<script type="text/javascript">
+  
+    var url = "{{ route('changeLang') }}";
+  
+    $(".changeLang").change(function(){
+        window.location.href = url + "?lang="+ $(this).val();
+    });
+  
+</script>
 </html>

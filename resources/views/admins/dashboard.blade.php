@@ -62,6 +62,18 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
                             class="fas fa-bars"></i></a>
                 </li>
+                <li class="nav-item">
+                <div class="col-md-4 mx-3">
+                    <label style="float:left"><strong>{{ __('message.language')}} </strong></label>
+                </div>
+                <li class="nav-item">
+                
+                    <select class="form-control changeLang float-start">
+                        <option value="en" {{ session()->get('locale') == 'en' ? 'selected' : '' }}>{{ __('message.english')}}</option>
+                        <option value="myan" {{ session()->get('locale') == 'myan' ? 'selected' : '' }}>{{ __('message.myanmar')}}</option>
+                    </select>
+                </div>
+                </li>
             </ul>                
         </nav>
         <!-- /.navbar -->
@@ -98,7 +110,7 @@
                             <a href="{{ route('categories.list') }}" class="nav-link">
                                 <i class="fa-solid fa-tags nav-icon" style="font-size: 17px"></i>
                                 <p>
-                                    Category
+                                    {{ __('message.category') }}
                                 </p>                                
                             </a>                            
                         </li>
@@ -107,7 +119,7 @@
                             <a href="{{ route('admins.products.index') }}" class="nav-link">
                                 <i class="fa-solid fa-box-open nav-icon" style="font-size: 17px"></i>
                                 <p>
-                                    Product
+                                    {{ __('message.productList') }}
                                 </p>
                             </a>
                         </li>
@@ -115,7 +127,7 @@
                             <a href="{{ route('admins.users.list') }}" class="nav-link">
                                 <i class="nav-icon fa-solid fa-users"></i>
                                 <p>
-                                    Users
+                                    {{ __('message.user') }}
                                 </p>
                             </a>
                         </li>
@@ -124,7 +136,7 @@
                             document.getElementById('logout-form').submit();"  class="nav-link">
                                 <i class="nav-icon fa-solid fa-right-from-bracket"></i>
                                 <p>                               
-                                    Logout
+                                    {{ __('message.logout') }}
                                 </p>
                             </a>
                             <form id="logout-form" action="{{ route('admins.logout') }}" method="POST" class="d-none">
@@ -188,6 +200,11 @@
 			document.getElementById("uploadImage").src = oFREvent.target.result;
 		};
 	};
+    var url = "{{ route('changeLang') }}";
+
+    $(".changeLang").change(function(){
+        window.location.href = url + "?lang="+ $(this).val();
+    });
     </script>
 </body>
 
